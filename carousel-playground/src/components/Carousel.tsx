@@ -71,12 +71,33 @@ const Nav = styled.ul`
 
     const handlePrev = () => {
         setActiveIndex(prev=>(prev-1)%banners.length)
+        <Base>
+        <Container>
             <ArrowButton onClick={handlePrev}>
                 <RiArrowDropLeftLine/>
             </ArrowButton>
+            <CarouselList>
+                {
+                    banners.map((banner)=>(
+                        <CarouselListItem>
+                            <img src={banner}></img>
+                        </CarouselListItem>
+                    ))
+                }
+            </CarouselList>
             <ArrowButton onClick={handleNext}>
                 <RiArrowDropRightLine/>
             </ArrowButton>
+        </Container>
+        <Nav>
+            {
+                Array.from({length:banners.lenght}).map((_,idx)=>{
                     <NavItem key={idx}>
                         <NavButton isActive={activeIndex === idx}/>
                     </NavItem>
+                })
+            }
+        </Nav>
+        </Base>
+    )
+}
