@@ -80,6 +80,7 @@ const Carousel: React.FC = () => {
         setActiveIndex(prev=>(prev-1)%banners.length)
     }
 
+    return (
         <Base>
         <Container>
             <ArrowButton onClick={handlePrev}>
