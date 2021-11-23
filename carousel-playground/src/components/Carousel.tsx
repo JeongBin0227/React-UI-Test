@@ -64,3 +64,7 @@ const Nav = styled.ul`
     ${NavItem} + ${NavItem} {
         margin-left:4px;
     }
+    const [activeIndex, setActiveIndex] = useState<number>(0)
+                    <NavItem key={idx}>
+                        <NavButton isActive={activeIndex === idx}/>
+                    </NavItem>
