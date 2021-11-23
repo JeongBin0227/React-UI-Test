@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from '@emotion/styled/macro'
 import {css} from '@emotion/react'
 import {RiArrowDropLeftLine, RiArrowDropRightLine} from 'react-icons/ri'
@@ -64,13 +64,22 @@ const Nav = styled.ul`
     ${NavItem} + ${NavItem} {
         margin-left:4px;
     }
+
+`
+
+const banners = ['https://via.placeholder.com/600/92c952','https://via.placeholder.com/600/92c952','https://via.placeholder.com/600/92c952']
+
+const Carousel: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0)
+
     const handleNext = () => {
         setActiveIndex(prev=>(prev+1)%banners.length)
     }
 
     const handlePrev = () => {
         setActiveIndex(prev=>(prev-1)%banners.length)
+    }
+
         <Base>
         <Container>
             <ArrowButton onClick={handlePrev}>
