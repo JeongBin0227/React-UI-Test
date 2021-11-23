@@ -65,6 +65,18 @@ const Nav = styled.ul`
         margin-left:4px;
     }
     const [activeIndex, setActiveIndex] = useState<number>(0)
+    const handleNext = () => {
+        setActiveIndex(prev=>(prev+1)%banners.length)
+    }
+
+    const handlePrev = () => {
+        setActiveIndex(prev=>(prev-1)%banners.length)
+            <ArrowButton onClick={handlePrev}>
+                <RiArrowDropLeftLine/>
+            </ArrowButton>
+            <ArrowButton onClick={handleNext}>
+                <RiArrowDropRightLine/>
+            </ArrowButton>
                     <NavItem key={idx}>
                         <NavButton isActive={activeIndex === idx}/>
                     </NavItem>
