@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from '@emotion/styled/macro'
 import {css} from '@emotion/react'
 import {RiArrowDropLeftLine, RiArrowDropRightLine} from 'react-icons/ri'
@@ -80,22 +80,28 @@ const Carousel: React.FC = () => {
         setActiveIndex(prev=>(prev-1)%banners.length)
     }
 
+
+    useEffect(()=>{
+        let intervalId:NodeJS.Timeout;
+
+        intervalId = setInterval(handleNext,3000);
+    },[])
     return (
         <Base>
         <Container>
-            <ArrowButton onClick={handlePrev}>
+            <ArrowButton pos="left" onClick={handlePrev}>
                 <RiArrowDropLeftLine/>
             </ArrowButton>
             <CarouselList>
                 {
-                    banners.map((banner)=>(
-                        <CarouselListItem>
+                    banners.map((banner,idx)=>(
+                        <CarouselListItem activeIndex={activeIndex} key={idx}>
                             <img src={banner}></img>
                         </CarouselListItem>
                     ))
                 }
             </CarouselList>
-            <ArrowButton onClick={handleNext}>
+            <ArrowButton pos="right" onClick={handleNext}>
                 <RiArrowDropRightLine/>
             </ArrowButton>
         </Container>
@@ -111,3 +117,5 @@ const Carousel: React.FC = () => {
         </Base>
     )
 }
+
+export default Carousel
