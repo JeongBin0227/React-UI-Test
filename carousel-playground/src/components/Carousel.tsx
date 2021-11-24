@@ -80,6 +80,9 @@ const Carousel: React.FC = () => {
         setActiveIndex(prev=>(prev-1)%banners.length)
     }
 
+    const goTo = (idx:number) => {
+        setActiveIndex(idx)
+    }
 
     const handleMounseEnter = () => setIsFocused(true)
 
@@ -96,6 +99,7 @@ const Carousel: React.FC = () => {
             clearInterval(intervalId)
         })
     },[isFocused])
+
     return (
         <Base onMouseEnter={handleMounseEnter} onMouseLeave={handleMounseLeave}>
         <Container>
@@ -117,11 +121,11 @@ const Carousel: React.FC = () => {
         </Container>
         <Nav>
             {
-                Array.from({length:banners.lenght}).map((_,idx)=>{
-                    <NavItem key={idx}>
+                Array.from({length:banners.length}).map((_,idx)=>(
+                    <NavItem key={idx} onClick={()=>goTo(idx)}>
                         <NavButton isActive={activeIndex === idx}/>
                     </NavItem>
-                })
+                ))
             }
         </Nav>
         </Base>
