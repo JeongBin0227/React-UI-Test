@@ -71,7 +71,7 @@ const banners = ['https://via.placeholder.com/600/92c952','https://via.placehold
 
 const Carousel: React.FC = () => {
     const [activeIndex, setActiveIndex] = useState<number>(0)
-
+    const [isFocused, setIsFocused] = useState<boolean>(false)
     const handleNext = () => {
         setActiveIndex(prev=>(prev+1)%banners.length)
     }
@@ -81,13 +81,23 @@ const Carousel: React.FC = () => {
     }
 
 
+    const handleMounseEnter = () => setIsFocused(true)
+
+    const handleMounseLeave = () => setIsFocused(false)
+
     useEffect(()=>{
         let intervalId:NodeJS.Timeout;
 
-        intervalId = setInterval(handleNext,3000);
-    },[])
+        if(!isFocused) {
+            intervalId = setInterval(handleNext,3000);
+        }
+
+        return(()=>{
+            clearInterval(intervalId)
+        })
+    },[isFocused])
     return (
-        <Base>
+        <Base onMouseEnter={handleMounseEnter} onMouseLeave={handleMounseLeave}>
         <Container>
             <ArrowButton pos="left" onClick={handlePrev}>
                 <RiArrowDropLeftLine/>
