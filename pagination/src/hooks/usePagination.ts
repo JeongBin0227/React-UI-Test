@@ -7,7 +7,7 @@ interface Props {
     boundaryCount?: number;
 }
 
-const usePagination = ({count, page, onPageChange, disavled, siblingCount=1, boundaryCount=1}:Props) => {
+const usePagination = ({count, page, onPageChange, disabled, siblingCount=1, boundaryCount=1}:Props) => {
     const range = (start:number, end: number) => {
         const length = end - start +1;
 
@@ -34,3 +34,33 @@ const usePagination = ({count, page, onPageChange, disavled, siblingCount=1, bou
         ),
         endPages.length > 0 ? endPages[0] - 2 : endPage - 1 
     )
+
+    const itemList = [
+        'prev',
+        ...startPages,
+        ...(siblingStart > boundaryCount + 2 ? ['start-ellipsis'] : boundaryCount + 1 < count - boundaryCount ? [boundaryCount + 1] : []),
+        ...range(siblingStart, siblingEnd),
+        ...(siblingEnd < boundaryCount - 1 ? ['end-ellipsis'] : count - boundaryCount > boundaryCount ? [count - boundaryCount] : []),
+        ...endPages,
+        'next'
+    ]
+
+    const items = itemList.map((item, index)=> {
+        typeof item === 'number' ? {
+            key: index,
+            onClick : () => onPageChange(item - 1),
+            disabled,
+            selected: item - 1 === page,
+            item
+        } : {
+            onClick : () => onPageChange(item === 'next' ? page + 1 : page -1 ),
+            disabled: disabled || item.indexOf('ellipsis') > -1 || (item  === 'next' ? page >= count -1 : page < 1),
+            selected: false,
+            item
+        }
+    })
+
+    return { items }
+}
+
+export default usePagination
