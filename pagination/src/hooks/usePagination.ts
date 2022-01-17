@@ -44,8 +44,9 @@ const usePagination = ({count, page, onPageChange, disabled, siblingCount=1, bou
         ...endPages,
         'next'
     ]
+    console.log(itemList)
 
-    const items = itemList.map((item, index)=> {
+    const items = itemList.map((item, index)=> (
         typeof item === 'number' ? {
             key: index,
             onClick : () => onPageChange(item - 1),
@@ -58,7 +59,7 @@ const usePagination = ({count, page, onPageChange, disabled, siblingCount=1, bou
             selected: false,
             item
         }
-    })
+    ))
 
     return { items }
 }
